@@ -560,40 +560,10 @@ public class EntityPickupListener implements Listener {
     }
     
     /**
-     * Stop charging (keep charge level for later throw)
+     * Stop charging (clear charge data)
      */
     private void stopCharging(Player player) {
-        UUID playerUUID = player.getUniqueId();
-        
-        if (!chargeStartTime.containsKey(playerUUID)) {
-            return;
-        }
-        
-        // Calculate and store the final charge level
-        long startTime = chargeStartTime.get(playerUUID);
-        double elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
-        double maxChargeTime = plugin.getMaxChargeTime();
-        double chargePercent = Math.min(elapsedSeconds / maxChargeTime, 1.0);
-        
-        double minMultiplier = plugin.getMinVelocityMultiplier();
-        double maxMultiplier = plugin.getMaxVelocityMultiplier();
-        double multiplier = minMultiplier + (maxMultiplier - minMultiplier) * chargePercent;
-        
-        // Store the charge level temporarily
-        chargeStartTime.put(playerUUID, -((long)(multiplier * 1000))); // Store as negative to indicate it's locked
-        
-        String displayType = plugin.getChargeDisplayType();
-        
-        if ("bossbar".equalsIgnoreCase(displayType)) {
-            // Hide BossBar but keep it
-            BossBar bossBar = chargeBossBars.get(playerUUID);
-            if (bossBar != null) {
-                bossBar.setVisible(false);
-            }
-        } else {
-            // Clear ActionBar
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(""));
-        }
+        cleanupCharge(player);
     }
     
     /**
@@ -604,25 +574,37 @@ public class EntityPickupListener implements Listener {
         
         double multiplier;
         
-        if (chargeStartTime.containsKey(playerUUID)) {
+        // Check if player is currently sneaking (holding shift)
+        if (player.isSneaking() && chargeStartTime.containsKey(playerUUID)) {
+            // Player is actively charging, calculate current level
             Long storedValue = chargeStartTime.get(playerUUID);
             
-            if (storedValue < 0) {
-                // Charge level was locked, use stored value
-                multiplier = Math.abs(storedValue) / 1000.0;
-            } else {
-                // Still charging, calculate current level
+            if (storedValue > 0) {
                 long startTime = storedValue;
                 double elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
                 double maxChargeTime = plugin.getMaxChargeTime();
-                double chargePercent = Math.min(elapsedSeconds / maxChargeTime, 1.0);
+                double rawProgress = elapsedSeconds / maxChargeTime;
+                
+                // Handle charge loop mode
+                double chargePercent;
+                if (plugin.isChargeLoop()) {
+                    chargePercent = rawProgress % 2.0;
+                    if (chargePercent > 1.0) {
+                        chargePercent = 2.0 - chargePercent;
+                    }
+                } else {
+                    chargePercent = Math.min(rawProgress, 1.0);
+                }
                 
                 double minMultiplier = plugin.getMinVelocityMultiplier();
                 double maxMultiplier = plugin.getMaxVelocityMultiplier();
                 multiplier = minMultiplier + (maxMultiplier - minMultiplier) * chargePercent;
+            } else {
+                // Use minimum if no valid charge time
+                multiplier = plugin.getMinVelocityMultiplier();
             }
         } else {
-            // No charge, use minimum multiplier
+            // Not sneaking or no charge started, use minimum multiplier
             multiplier = plugin.getMinVelocityMultiplier();
         }
         

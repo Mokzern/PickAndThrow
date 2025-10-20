@@ -42,9 +42,9 @@ A feature-rich Minecraft plugin that allows players to pick up and throw entitie
 
 **Charge mode**:
 1. Right-click entity → Pick up
-2. Hold Shift → Charge power (BossBar/ActionBar shows)
-3. Release Shift → Lock power level
-4. Left-click → Throw with charged power
+2. Hold Shift → Start charging (BossBar/ActionBar shows progress)
+3. While holding Shift, Left-click → Throw with current charge power
+4. Release Shift and Left-click → Throw with minimum power
 
 ### Custom Pickup Item (Optional)
 
