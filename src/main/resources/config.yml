@@ -45,6 +45,10 @@ entity-filter-list:
 # 抛出模式："one"（一次抛出一个）或 "all"（一次抛出全部堆叠的生物）
 throw-mode: all
 
+# Pickup range in blocks (how far player can pick up entities)
+# 拾取范围（方块）（玩家能在多远距离举起生物）
+pickup-range: 4.5
+
 # Throw cooldown in milliseconds (time between pickup and being able to throw)
 # This prevents accidental double-trigger issues (e.g. with horses)
 # Set to 0 to disable
@@ -98,7 +102,7 @@ throw-charge:
   min-velocity-multiplier: 0
   # Maximum velocity multiplier (at 100% charge)
   # 最大速度倍数（100%蓄力时）
-  max-velocity-multiplier: 5.0
+  max-velocity-multiplier: 4.0
   # Base velocity
   # 基础速度
   base-horizontal-velocity: 1.0

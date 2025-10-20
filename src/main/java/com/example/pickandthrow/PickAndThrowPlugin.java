@@ -149,6 +149,13 @@ public class PickAndThrowPlugin extends JavaPlugin {
     }
     
     /**
+     * Get pickup range
+     */
+    public double getPickupRange() {
+        return getConfig().getDouble("pickup-range", 5.0);
+    }
+    
+    /**
      * Get entity filter mode
      */
     public String getEntityFilterMode() {

@@ -20,16 +20,10 @@ A feature-rich Minecraft plugin that allows players to pick up and throw entitie
 
 ## 📦 Installation
 
-1. Download `PickAndThrow-1.0.0.jar`
+1. Download the plugin jar
 2. Place it in your server's `plugins/` folder
 3. Restart the server
 4. Configuration files will be auto-generated in `plugins/PickAndThrow/`
-
-**Supported Servers:**
-- Folia 1.20+
-- Paper 1.20+
-- Spigot 1.20+
-- Bukkit 1.20+
 
 ## 🎮 How to Use
 
@@ -48,7 +42,7 @@ A feature-rich Minecraft plugin that allows players to pick up and throw entitie
 
 ### Custom Pickup Item (Optional)
 
-1. Hold any item (supports custom items with NBT)
+1. Hold any item
 2. Use `/pat sethand` → Set as pickup tool
 3. Use `/pat sethand` with empty hand → Clear (back to empty hand mode)
 
@@ -90,6 +84,9 @@ entity-filter-list:
 
 # Throw mode: "one" or "all"
 throw-mode: one
+
+# Pickup range (blocks)
+pickup-range: 4.5
 
 # Throw cooldown (ms)
 throw-cooldown: 300
@@ -158,32 +155,15 @@ Output: `target/PickAndThrow-1.0.0.jar`
 
 ## 📖 Technical Details
 
-- **Entity stacking**: Uses Bukkit passenger system
-- **Throw direction**: Follows exact player look direction (pitch & yaw)
-- **Charge display**: Updates every tick (20 times per second)
+- **Throw direction**: Follows exact player look direction
+- **Charge display**: Updates every tick
   - BossBar: Configurable colors
   - ActionBar: Rainbow gradient with 30 bars
-- **Smart raycast**: Handles large entity hitboxes (e.g., spiders)
-- **Cooldown system**: Prevents double-trigger issues (e.g., horses)
-- **NBT matching**: Full ItemStack comparison for custom items
+- **Smart raycast**: Handles large entity hitboxes
+- **Cooldown system**: Prevents double-trigger issues
+- **NBT matching**: Full ItemStack comparison
 - **Server detection**: Auto-detects Folia and uses appropriate scheduler API
-- **Silent permissions**: No spam when players lack permissions
 
 ## 📄 License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-### What this means:
-- ✅ You can use this plugin freely
-- ✅ You can modify and distribute it
-- ⚠️ If you distribute modified versions, you must also open-source them under GPL v3
-- ⚠️ You must include the original copyright and license notices
-
-## 👨‍💻 Author
-
-Mokzern
-
----
-
-**Support:** Report issues on GitHub  
-**Version:** 1.0.0

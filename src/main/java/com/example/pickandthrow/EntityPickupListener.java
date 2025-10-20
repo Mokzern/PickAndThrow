@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -259,6 +260,35 @@ public class EntityPickupListener implements Listener {
         rainbowOffset.remove(playerUUID);
     }
     
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+        Entity deadEntity = event.getEntity();
+        
+        // Check if this entity is being carried by any player
+        for (Map.Entry<UUID, Entity> entry : carriedEntities.entrySet()) {
+            UUID playerUUID = entry.getKey();
+            Entity carriedEntity = entry.getValue();
+            
+            // Check if the dead entity is in the stack
+            if (isEntityInStack(carriedEntity, deadEntity)) {
+                // Clean up player's data
+                Player player = plugin.getServer().getPlayer(playerUUID);
+                if (player != null) {
+                    cleanupCharge(player);
+                }
+                
+                // If the base entity died, remove entire stack
+                if (carriedEntity.equals(deadEntity)) {
+                    carriedEntities.remove(playerUUID);
+                    pickupTime.remove(playerUUID);
+                    rainbowOffset.remove(playerUUID);
+                }
+                
+                break;
+            }
+        }
+    }
+    
     /**
      * Recursively remove all passengers
      */
@@ -395,10 +425,11 @@ public class EntityPickupListener implements Listener {
         }
         
         // Use world raycast to find entities in player's line of sight
+        double range = plugin.getPickupRange();
         RayTraceResult result = player.getWorld().rayTraceEntities(
             player.getEyeLocation(),
             player.getLocation().getDirection(),
-            5.0, // 5 block range
+            range, // Configurable range
             0.5, // Entity hitbox accuracy
             entity -> {
                 // Filter: must be living entity, not the player, and not in stack
