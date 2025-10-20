@@ -1,0 +1,28 @@
+name: PickAndThrow
+version: 1.0.0
+main: com.example.pickandthrow.PickAndThrowPlugin
+api-version: '1.20'
+folia-supported: true
+description: PickAndThrow Plugin - Allows players to pick up and throw entities (Compatible with Bukkit/Spigot/Paper/Folia)
+authors: [Mokzern]
+
+commands:
+  pickandthrow:
+    description: PickAndThrow plugin commands
+    usage: |
+      /pickandthrow - Show help
+      /pickandthrow reload - Reload config
+      /pickandthrow sethand - Set held item as pickup tool
+    aliases: [pat]
+    permission: pickandthrow.admin
+    permission-message: You don't have permission to use this command
+
+permissions:
+  pickandthrow.use:
+    description: Allows using PickAndThrow features (pick up and throw)
+    default: true
+  pickandthrow.admin:
+    description: Allows using PickAndThrow admin commands
+    default: op
+
+

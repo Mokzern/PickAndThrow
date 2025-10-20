@@ -1,0 +1,104 @@
+# PickAndThrow Plugin Configuration
+# PickAndThrow 插件配置文件
+
+# Language file (without .yml extension)
+# Examples: zh-CN, en-UK, ja-JP, etc.
+# If file not found, will fallback to en-UK
+# 语言文件（不含.yml扩展名）
+# 示例：zh-CN, en-UK, ja-JP 等
+# 如果找不到文件，将使用默认的 en-UK
+language: en-UK
+
+# Maximum number of entities that can be picked up (including the first one)
+# Example: Setting to 3 means player can have max 3 entities stacked
+# Set to -1 for unlimited
+# 最大可举起的生物数量（包括第一个举起的生物）
+# 例如：设置为3表示玩家头上最多可以有3个生物叠加
+# 设置为-1表示无限制
+max-entities: -1
+
+# Entity filter mode: "whitelist" or "blacklist"
+# whitelist: Only listed entities can be picked up
+# blacklist: Listed entities cannot be picked up (empty list = allow all)
+# 生物过滤模式："whitelist"（白名单）或 "blacklist"（黑名单）
+# whitelist：只有列表中的生物可以被举起
+# blacklist：列表中的生物不能被举起（空列表 = 允许所有）
+entity-filter-mode: blacklist
+
+# Entity types for filter
+# See: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+# To clear list: use "entity-filter-list: []" (empty brackets)
+# 过滤的生物类型
+# 参考：https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+# 清空列表：使用 "entity-filter-list: []" （空方括号）
+entity-filter-list:
+  - ENDER_DRAGON  # Ender Dragon / 末影龙
+  # More examples (uncomment to use):
+  # 更多示例（取消注释即可使用）：
+  # - WARDEN        # Warden / 监守者
+  # - WITHER        # Wither / 凋灵
+  # - IRON_GOLEM    # Iron Golem / 铁傀儡
+  # - VILLAGER      # Villager / 村民
+  # - PLAYER        # Other players / 其他玩家
+
+# Throw mode: "one" (throw one at a time) or "all" (throw all stacked entities)
+# 抛出模式："one"（一次抛出一个）或 "all"（一次抛出全部堆叠的生物）
+throw-mode: all
+
+# Throw cooldown in milliseconds (time between pickup and being able to throw)
+# This prevents accidental double-trigger issues (e.g. with horses)
+# Set to 0 to disable
+# 抛出冷却时间（毫秒）（从举起到可以抛出的时间间隔）
+# 这可以防止意外的双重触发问题（例如与马的交互冲突）
+# 设置为0禁用
+throw-cooldown: 300
+
+# Throw power mode: "fixed" or "charge"
+# fixed: Use fixed velocity from config
+# charge: Player sneaks to charge power, shows power level indicator
+# 抛出力度模式："fixed"（固定力度）或 "charge"（蓄力模式）
+# fixed：使用配置文件中的固定速度
+# charge：玩家按住Shift蓄力，显示力度指示器
+throw-power-mode: charge
+
+# Charge display type: "bossbar" or "actionbar"
+# 蓄力显示类型："bossbar"（Boss血条）或 "actionbar"（动作栏）
+charge-display-type: bossbar
+
+# Charge loop mode: when charge reaches 100%, loop back to 0% and repeat
+# This allows players to time their throw precisely
+# 蓄力循环模式：当蓄力达到100%时，返回0%并重复
+# 这样玩家可以看准时机来抛出
+charge-loop: true
+
+# BossBar color settings (only used when charge-display-type is "bossbar")
+# Colors: RED, PINK, BLUE, GREEN, YELLOW, PURPLE, WHITE
+# 进度条颜色设置（仅在 charge-display-type 为 "bossbar" 时使用）
+# 可选颜色：RED, PINK, BLUE, GREEN, YELLOW, PURPLE, WHITE
+bossbar-colors:
+  low: WHITE      # 0-33% charge / 0-33%蓄力
+  medium: WHITE  # 33-66% charge / 33-66%蓄力
+  high: WHITE   # 66-100% charge / 66-100%蓄力
+
+# Fixed throw velocity (only used when throw-power-mode is "fixed")
+# 固定抛出速度（仅在 throw-power-mode 为 "fixed" 时使用）
+throw-fixed:
+  # Throw velocity (follows player's look direction)
+  # 抛出速度（完全跟随玩家视线方向）
+  horizontal-velocity: 2.0
+
+# Charge throw settings (only used when throw-power-mode is "charge")
+# 蓄力抛出设置（仅在 throw-power-mode 为 "charge" 时使用）
+throw-charge:
+  # Maximum charge time in seconds
+  # 最大蓄力时间（秒）
+  max-charge-time: 3.0
+  # Minimum velocity multiplier (at 0% charge)
+  # 最小速度倍数（0%蓄力时）
+  min-velocity-multiplier: 0
+  # Maximum velocity multiplier (at 100% charge)
+  # 最大速度倍数（100%蓄力时）
+  max-velocity-multiplier: 3.0
+  # Base velocity (follows player's look direction)
+  # 基础速度（完全跟随玩家视线方向）
+  base-horizontal-velocity: 1.0

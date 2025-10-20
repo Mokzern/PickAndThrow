@@ -1,0 +1,19 @@
+# 中文语言文件
+
+# BossBar/ActionBar 显示
+charge-bar-title: "蓄力中"
+
+# 命令消息
+command:
+  plugin-info: "&e[PickAndThrow] &f版本 {version}"
+  help: "&e[PickAndThrow] &f命令列表："
+  help-reload: "&7- &a/pat reload &7- 重载配置"
+  help-sethand: "&7- &a/pat sethand &7- 设置手持物品为举起工具"
+  reload-success: "&a[PickAndThrow] 配置已重载！"
+  hand-success: "&a[PickAndThrow] 已设置手持物品为举起工具！"
+  hand-cleared: "&a[PickAndThrow] 已清除自定义物品，恢复为空手模式"
+  hand-empty: "&c[PickAndThrow] 你必须手持一个物品"
+  no-permission: "&c[PickAndThrow] 你没有权限使用此命令"
+  player-only: "&c[PickAndThrow] 此命令只能由玩家使用"
+  unknown-command: "&c[PickAndThrow] 未知的子命令"
+

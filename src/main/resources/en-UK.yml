@@ -1,0 +1,19 @@
+# English Language File
+
+# BossBar/ActionBar display
+charge-bar-title: "Charging Power"
+
+# Command messages
+command:
+  plugin-info: "&e[PickAndThrow] &fVersion {version}"
+  help: "&e[PickAndThrow] &fCommands:"
+  help-reload: "&7- &a/pat reload &7- Reload configuration"
+  help-sethand: "&7- &a/pat sethand &7- Set held item as pickup tool"
+  reload-success: "&a[PickAndThrow] Configuration reloaded!"
+  hand-success: "&a[PickAndThrow] Set held item as pickup tool!"
+  hand-cleared: "&a[PickAndThrow] Cleared custom item, back to empty hand mode"
+  hand-empty: "&c[PickAndThrow] You must hold an item in your hand"
+  no-permission: "&c[PickAndThrow] You don't have permission to use this command"
+  player-only: "&c[PickAndThrow] This command can only be used by players"
+  unknown-command: "&c[PickAndThrow] Unknown subcommand"
+
