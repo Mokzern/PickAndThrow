@@ -40,6 +40,8 @@ public class EntityPickupListener implements Listener {
     private final Map<UUID, BossBar> chargeBossBars = new HashMap<>();
     // Store pickup time for cooldown check
     private final Map<UUID, Long> pickupTime = new HashMap<>();
+    // Store animation offset for rainbow effect
+    private final Map<UUID, Integer> rainbowOffset = new HashMap<>();
     
     public EntityPickupListener(PickAndThrowPlugin plugin) {
         this.plugin = plugin;
@@ -252,6 +254,9 @@ public class EntityPickupListener implements Listener {
         
         // Clean up pickup time
         pickupTime.remove(playerUUID);
+        
+        // Clean up rainbow offset
+        rainbowOffset.remove(playerUUID);
     }
     
     /**
@@ -522,26 +527,32 @@ public class EntityPickupListener implements Listener {
                         }
                     }
                 } else {
-                    // Update ActionBar - Rainbow bars
+                    // Update ActionBar - Fixed gradient rainbow
                     int totalBars = 30;
                     int filledBars = (int) (progress * totalBars);
                     
-                    // Rainbow colors
+                    // Rainbow gradient colors (smooth transition)
                     ChatColor[] rainbowColors = {
+                        ChatColor.DARK_RED,
                         ChatColor.RED,
                         ChatColor.GOLD,
                         ChatColor.YELLOW,
                         ChatColor.GREEN,
+                        ChatColor.DARK_GREEN,
                         ChatColor.AQUA,
+                        ChatColor.DARK_AQUA,
                         ChatColor.BLUE,
-                        ChatColor.LIGHT_PURPLE
+                        ChatColor.DARK_BLUE,
+                        ChatColor.LIGHT_PURPLE,
+                        ChatColor.DARK_PURPLE
                     };
                     
                     StringBuilder bar = new StringBuilder();
                     
                     for (int i = 0; i < totalBars; i++) {
                         if (i < filledBars) {
-                            // Rainbow color based on position
+                            // Fixed gradient: each bar has color based on its position
+                            // Map position (0-29) to color index (0-11)
                             int colorIndex = (i * rainbowColors.length) / totalBars;
                             bar.append(rainbowColors[colorIndex]).append("|");
                         } else {
@@ -632,6 +643,9 @@ public class EntityPickupListener implements Listener {
         if (player.isOnline()) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(""));
         }
+        
+        // Clean up rainbow offset
+        rainbowOffset.remove(playerUUID);
     }
     
     /**

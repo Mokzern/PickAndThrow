@@ -63,7 +63,7 @@ throw-power-mode: charge
 
 # Charge display type: "bossbar" or "actionbar"
 # 蓄力显示类型："bossbar"（Boss血条）或 "actionbar"（动作栏）
-charge-display-type: bossbar
+charge-display-type: actionbar
 
 # Charge loop mode: when charge reaches 100%, loop back to 0% and repeat
 # This allows players to time their throw precisely
@@ -83,8 +83,8 @@ bossbar-colors:
 # Fixed throw velocity (only used when throw-power-mode is "fixed")
 # 固定抛出速度（仅在 throw-power-mode 为 "fixed" 时使用）
 throw-fixed:
-  # Throw velocity (follows player's look direction)
-  # 抛出速度（完全跟随玩家视线方向）
+  # Throw velocity
+  # 抛出速度
   horizontal-velocity: 2.0
 
 # Charge throw settings (only used when throw-power-mode is "charge")
@@ -98,7 +98,7 @@ throw-charge:
   min-velocity-multiplier: 0
   # Maximum velocity multiplier (at 100% charge)
   # 最大速度倍数（100%蓄力时）
-  max-velocity-multiplier: 3.0
-  # Base velocity (follows player's look direction)
-  # 基础速度（完全跟随玩家视线方向）
+  max-velocity-multiplier: 5.0
+  # Base velocity
+  # 基础速度
   base-horizontal-velocity: 1.0

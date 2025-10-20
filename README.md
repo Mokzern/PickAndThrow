@@ -171,7 +171,13 @@ Output: `target/PickAndThrow-1.0.0.jar`
 
 ## 📄 License
 
-This plugin is for educational and personal use only.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+### What this means:
+- ✅ You can use this plugin freely
+- ✅ You can modify and distribute it
+- ⚠️ If you distribute modified versions, you must also open-source them under GPL v3
+- ⚠️ You must include the original copyright and license notices
 
 ## 👨‍💻 Author
 

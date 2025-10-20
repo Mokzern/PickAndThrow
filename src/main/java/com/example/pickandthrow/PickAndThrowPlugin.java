@@ -12,9 +12,9 @@ public class PickAndThrowPlugin extends JavaPlugin {
         // Save default config
         saveDefaultConfig();
         
-        // Save default language files
-        saveResource("zh-CN.yml", false);
-        saveResource("en-UK.yml", false);
+        // Save default language files (only if not exists)
+        saveResourceIfNotExists("zh-CN.yml");
+        saveResourceIfNotExists("en-UK.yml");
         
         // Initialize managers
         languageManager = new LanguageManager(this);
@@ -160,6 +160,16 @@ public class PickAndThrowPlugin extends JavaPlugin {
      */
     public java.util.List<String> getEntityFilterList() {
         return getConfig().getStringList("entity-filter-list");
+    }
+    
+    /**
+     * Save resource only if it doesn't exist
+     */
+    private void saveResourceIfNotExists(String resourcePath) {
+        java.io.File file = new java.io.File(getDataFolder(), resourcePath);
+        if (!file.exists()) {
+            saveResource(resourcePath, false);
+        }
     }
     
     @Override
